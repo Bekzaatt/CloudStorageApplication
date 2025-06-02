@@ -1,0 +1,8 @@
+databaseChangeLog:
+  -  changeSet:
+       id:  drop-table-token
+       author:  Bekzat
+       changes:
+         -  dropTable:
+              cascadeConstraints:  true
+              tableName:  token

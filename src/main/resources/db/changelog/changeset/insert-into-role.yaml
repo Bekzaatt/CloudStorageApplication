@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-into-role
+      author: Bekzat
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: id, value: 1 }
+              - column: { name: name, value: "USER" }
+

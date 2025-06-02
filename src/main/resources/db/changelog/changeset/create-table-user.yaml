@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user
+      author: Bekzat
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: text
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: text
+                  constraints:
+                    nullable: false
+
+

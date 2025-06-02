@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-token
+      author: Bekzat
+      changes:
+        - createTable:
+            tableName: token
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_logged_out
+                  type: boolean
+              - column:
+                  name: user_id
+                  type: serial
+                  constraints:
+                    foreignKeyName: user_id
+                    referencedTableName: users
+                    referencedColumnNames: id
+                    deleteCascade: true

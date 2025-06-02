@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-table-user.yaml
+  - include:
+      file: db/changelog/changeset/create-table-role.yaml
+  - include:
+      file: db/changelog/changeset/create-table-users_roles.yaml
+  - include:
+      file: db/changelog/changeset/insert-into-role.yaml
+  - include: 
+      file: db/changelog/changeset/create-table-token.yaml
+  - include:
+      file: db/changelog/changeset/drop-table-token.yaml
