@@ -8,16 +8,16 @@ public class Resource {
     private String path;
     private String name;
     private byte size;
-    private TYPE type;
+    private Type type;
 
-    public Resource(String path, String name, byte size, TYPE type) {
+    public Resource(String path, String name, byte size, Type type) {
         this.path = path;
         this.name = name;
         this.size = size;
         this.type = type;
     }
 
-    public Resource(String path, String name, TYPE type){
+    public Resource(String path, String name, Type type){
         this.path = path;
         this.name = name;
         this.type = type;
@@ -47,11 +47,11 @@ public class Resource {
         this.size = size;
     }
 
-    public TYPE getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(TYPE type) {
+    public void setType(Type type) {
         this.type = type;
     }
 }

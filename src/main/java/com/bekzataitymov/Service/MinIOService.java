@@ -1,13 +1,19 @@
 package com.bekzataitymov.Service;
 
+import com.bekzataitymov.Configuration.MinioConfig;
 import com.bekzataitymov.Repository.UserRepository;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.Item;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Data;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,26 +38,9 @@ import static org.bouncycastle.asn1.x509.GeneralName.directoryName;
 
 @Service
 public class MinIOService {
-
-    @Value("${spring.minio.endpoint}")
-    private String endpoint;
-    @Value("${spring.minio.accessKey}")
-    private String accessKey;
-    @Value("${spring.minio.secretKey}")
-    private String secretKey;
-    private final String folderPath = "C:\\Users\\Asus\\users_files\\";
     @Autowired
-    private UserRepository userRepository;
     private MinioClient minioClient;
     private final String bucketName = "users-files";
-
-    @PostConstruct
-    private void minioClient(){
-        minioClient = MinioClient.builder()
-                .endpoint(endpoint)
-                .credentials(accessKey, secretKey)
-                .build();
-    }
 
     public void createObject(String path) throws Exception{
         minioClient.putObject(PutObjectArgs.builder()
@@ -59,9 +48,7 @@ public class MinIOService {
                 .object(path)
                 .stream(new ByteArrayInputStream(new byte[]{}), 0, -1)
                 .build());
-
     }
-
     public void deleteObject(String path) throws Exception{
         minioClient.removeObject(RemoveObjectArgs.builder()
                         .bucket(bucketName)
@@ -118,7 +105,7 @@ public class MinIOService {
         );
     }
 
-    public boolean ifObjectsExists(String path){
+    public boolean isObjectsExists(String path){
         boolean isFound = false;
         Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
                 .bucket(bucketName)
@@ -141,7 +128,7 @@ public class MinIOService {
         return (byte) size;
     }
 
-    public boolean ifPathExists(String path){
+    public boolean isPathExists(String path){
         try {
             minioClient.statObject(StatObjectArgs.builder()
                             .bucket(bucketName)
@@ -163,5 +150,4 @@ public class MinIOService {
                         .object(pathToFile)
                 .build());
     }
-
 }

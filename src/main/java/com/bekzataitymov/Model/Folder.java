@@ -1,14 +1,13 @@
 package com.bekzataitymov.Model;
 
 import lombok.Data;
-
 @Data
 public class Folder {
     private String path;
     private String name;
-    private TYPE type;
+    private Type type;
 
-    public Folder(String path, String name, TYPE type){
+    public Folder(String path, String name, Type type){
         this.path = path;
         this.name = name;
         this.type = type;
@@ -30,11 +29,11 @@ public class Folder {
         this.name = name;
     }
 
-    public TYPE getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(TYPE type) {
+    public void setType(Type type) {
         this.type = type;
     }
 }

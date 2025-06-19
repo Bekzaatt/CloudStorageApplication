@@ -1,5 +1,6 @@
-package com.bekzataitymov.Controller;
+package com.bekzataitymov.Controller.Implementation;
 
+import com.bekzataitymov.Controller.Interface.UserControllerInterface;
 import com.bekzataitymov.Model.Request.AuthenticationRequest;
 import com.bekzataitymov.Model.Response.AuthenticationResponse;
 import com.bekzataitymov.Model.Response.ErrorResponse;
@@ -24,25 +25,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@SecurityRequirement(name = "Authorize")
-public class UserController {
-    @Autowired
-    private UserService userService;
+public class UserController implements UserControllerInterface {
+    private final UserService userService;
 
-    @Operation(description = "This method is getting the current user", summary = "Get the user")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content ={
-                    @Content(mediaType = "application/json", schema =
-                    @Schema(implementation = UsernameResponse.class)) }),
-            @ApiResponse(responseCode = "401", description = "Unauthorized user", content = {
-                    @Content(mediaType = "application/json", schema =
-                    @Schema(implementation = ErrorResponse.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "Internal server error", content = {
-                    @Content(mediaType = "application/json", schema =
-                    @Schema(implementation = ErrorResponse.class))
-            })
-    })
+    @Autowired
+    public UserController(UserService userService){
+        this.userService = userService;
+    }
+
     @GetMapping("/user/me")
     public ResponseEntity<Map<String, String>> getCurrentUser(HttpSession httpSession){
         String username = userService.findUserBySessions(httpSession);

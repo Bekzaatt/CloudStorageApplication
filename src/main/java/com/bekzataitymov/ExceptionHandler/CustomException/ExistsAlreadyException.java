@@ -1,9 +1,10 @@
 package com.bekzataitymov.ExceptionHandler.CustomException;
 
-public class ThereIsSuchUserException extends RuntimeException {
+public class ExistsAlreadyException extends RuntimeException {
     private String message;
 
-    public ThereIsSuchUserException(String message) {
+    public ExistsAlreadyException(String message) {
         super(message);
     }
 }
+

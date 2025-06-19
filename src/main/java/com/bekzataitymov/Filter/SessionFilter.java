@@ -21,7 +21,7 @@ import java.io.IOException;
 @Component
 public class SessionFilter extends OncePerRequestFilter {
     @Autowired
-    ApplicationContext context;
+    private ApplicationContext context;
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
