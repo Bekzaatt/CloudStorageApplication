@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -32,7 +31,6 @@ public class User {
     public int getId() {
         return id;
     }
-
     public String getUsername() {
         return username;
     }

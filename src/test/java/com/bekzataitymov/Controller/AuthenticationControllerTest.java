@@ -51,7 +51,6 @@ public class AuthenticationControllerTest {
     void checkTheEnvironments(){
         assertTrue(postgres.isCreated());
         assertTrue(postgres.isRunning());
-
     }
 
     @Test

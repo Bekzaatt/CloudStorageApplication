@@ -19,12 +19,7 @@ public class ExceptionHandler {
     public ResponseEntity<Map<String, String>> UnknownException(Exception ex){
         return new ResponseEntity<>(Collections.singletonMap("message", ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    @org.springframework.web.bind.annotation.ExceptionHandler(ThereIsSuchUserException.class)
-    public ResponseEntity<Map<String, String>> thereIsSuchUserException(ThereIsSuchUserException ex){
-        return new ResponseEntity(Collections.singletonMap("message", ex.getMessage()), HttpStatus.CONFLICT);
-    }
-
+    
     @org.springframework.web.bind.annotation.ExceptionHandler(InvalidCredentials.class)
     public ResponseEntity<Map<String, String>> thereIsNoSuchUserException(InvalidCredentials ex){
         return new ResponseEntity(Collections.singletonMap("message", ex.getMessage()), HttpStatus.UNAUTHORIZED);
@@ -46,28 +41,18 @@ public class ExceptionHandler {
         return new ResponseEntity(Collections.singletonMap("message", ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Map<String, String>> resourceNotFoundException(ResourceNotFoundException ex){
-        return new ResponseEntity<>(Collections.singletonMap("message", ex.getMessage()), HttpStatus.NOT_FOUND);
-    }
-
     @org.springframework.web.bind.annotation.ExceptionHandler(PathInvalidException.class)
     public ResponseEntity<Map<String, String>> pathInvalidException(PathInvalidException ex){
         return new ResponseEntity<>(Collections.singletonMap("message", ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(ThereIsSuchResourceException.class)
-    public ResponseEntity<Map<String, String>> thereIsSuchResourceException(ThereIsSuchResourceException ex){
+    @org.springframework.web.bind.annotation.ExceptionHandler(ExistsAlreadyException.class)
+    public ResponseEntity<Map<String, String>> existsAlreadyException(ExistsAlreadyException ex){
         return new ResponseEntity<>(Collections.singletonMap("message", ex.getMessage()), HttpStatus.CONFLICT);
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(DirectoryNotFoundException.class)
-    public ResponseEntity<Map<String, String>> directoryNotFoundException(DirectoryNotFoundException ex){
+    @org.springframework.web.bind.annotation.ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Map<String, String>> notFoundException(NotFoundException ex){
         return new ResponseEntity<>(Collections.singletonMap("message", ex.getMessage()), HttpStatus.NOT_FOUND);
-    }
-
-    @org.springframework.web.bind.annotation.ExceptionHandler(ThereIsAlreadySuchPathExists.class)
-    public ResponseEntity<Map<String, String>> suchPathExistsException(ThereIsAlreadySuchPathExists ex){
-        return new ResponseEntity<>(Collections.singletonMap("message", ex.getMessage()), HttpStatus.CONFLICT);
     }
 }

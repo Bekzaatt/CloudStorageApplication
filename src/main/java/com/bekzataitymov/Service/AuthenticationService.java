@@ -1,7 +1,8 @@
 package com.bekzataitymov.Service;
 
+import com.bekzataitymov.ExceptionHandler.CustomException.ExistsAlreadyException;
 import com.bekzataitymov.ExceptionHandler.CustomException.InvalidCredentials;
-import com.bekzataitymov.ExceptionHandler.CustomException.ThereIsSuchUserException;
+import com.bekzataitymov.ExceptionHandler.CustomException.NotFoundException;
 import com.bekzataitymov.ExceptionHandler.CustomException.UnauthorizedException;
 import com.bekzataitymov.Model.Request.AuthenticationRequest;
 import com.bekzataitymov.Model.Response.AuthenticationResponse;
@@ -34,17 +35,19 @@ public class AuthenticationService {
     public AuthenticationResponse save(AuthenticationRequest request, HttpServletRequest req){
 
         String encodedPassword = bCryptPasswordEncoder.encode(request.getPassword());
-        Role userRole = roleRepository.findByName("USER")
-                .orElseThrow(() -> new RuntimeException("Роль USER не найдена в БД"));
+        Optional<Role> userRole = roleRepository.findByName("USER");
+        if(userRole.isEmpty()){
+            throw new NotFoundException("Role not found.");
+        }
         Optional<User> optionalUser = userRepository.findByUsername(request.getUsername());
         if(optionalUser.isPresent()){
-            throw new ThereIsSuchUserException("Username is busy");
+            throw new ExistsAlreadyException("Username is busy");
         }
 
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(encodedPassword);
-        user.getRoles().add(userRole);
+        user.getRoles().add(userRole.get());
         HttpSession httpSession = req.getSession();
         httpSession.setAttribute("username", user.getUsername());
         userRepository.save(user);
