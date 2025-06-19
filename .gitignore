@@ -48,3 +48,6 @@ data/.minio.sys/
 
 ### Redis ###
 ./redis-data/
+
+###  ###
+*.log
