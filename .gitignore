@@ -32,7 +32,19 @@ build/
 ### VS Code ###
 .vscode/
 
-#enironment variable
+### environment files ###
 .env
 
+### Database ###
 pgdata/
+
+### MinIO ###
+data/
+data/.minio.sys/
+
+### Docker ###
+*.pid
+.docker/
+
+### Redis ###
+./redis-data/
